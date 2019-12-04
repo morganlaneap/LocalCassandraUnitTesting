@@ -15,6 +15,8 @@ namespace CassandraLogic.Helpers
                     .AddContactPoint(contactPoint)
                     .Build();
             cassandraSession = cluster.Connect();
+            CreateCommerceKeyspace();
+            CreateProductsTable();
         }
 
         public void Dispose()
@@ -35,6 +37,17 @@ namespace CassandraLogic.Helpers
         {
             Mapper mapper = new Mapper(cassandraSession);
             return mapper.Fetch<T>(query);
+        }
+
+        public void CreateCommerceKeyspace()
+        {
+            cassandraSession.CreateKeyspaceIfNotExists(Constants.KEYSPACE_NAME);
+        }
+
+        public void CreateProductsTable()
+        {
+            cassandraSession.ChangeKeyspace(Constants.KEYSPACE_NAME);
+            cassandraSession.Execute(Constants.CREATE_PRODUCTS_TABLE_CQL);
         }
     }
 }

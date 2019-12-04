@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using CassandraLogic.Helpers;
 using CassandraLogic.Models;
+using System.Collections.Generic;
 namespace CassandraLogic
 {
     class Program
@@ -17,8 +18,11 @@ namespace CassandraLogic
             CassandraHelper cassandraHelper = new CassandraHelper(cassandraContactPoint, cassandraPort);
 
             // Insert a record
+            ProductModel newProduct = new ProductModel();
+            cassandraHelper.InsertData(newProduct);
 
             // Get a record
+            IEnumerable<ProductModel> allProducts = cassandraHelper.GetData<ProductModel>($"SELECT * FROM {Constants.KEYSPACE_NAME}.{Constants.PRODUCT_TABLE_NAME}");
         }
 
         public static IConfigurationSection GetConfigSection(string directory, string section)
