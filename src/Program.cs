@@ -18,8 +18,8 @@ namespace CassandraLogic
             CassandraHelper cassandraHelper = new CassandraHelper(cassandraContactPoint, cassandraPort);
 
             // Insert a record
-            ProductModel newProduct = new ProductModel();
-            cassandraHelper.InsertData(newProduct);
+            ProductModel newProduct = ProductModel.Generate();
+            cassandraHelper.InsertData<ProductModel>(newProduct);
 
             // Get a record
             IEnumerable<ProductModel> allProducts = cassandraHelper.GetData<ProductModel>($"SELECT * FROM {Constants.KEYSPACE_NAME}.{Constants.PRODUCT_TABLE_NAME}");

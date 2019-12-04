@@ -27,7 +27,7 @@ namespace CassandraLogic.Helpers
             }
         }
 
-        public void InsertData(object objectToInsert)
+        public void InsertData<T>(T objectToInsert)
         {
             Mapper mapper = new Mapper(cassandraSession);
             mapper.Insert(objectToInsert);

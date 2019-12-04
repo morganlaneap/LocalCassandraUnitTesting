@@ -1,4 +1,7 @@
 using NUnit.Framework;
+using CassandraLogic.Models;
+using CassandraLogic.Helpers;
+using System.Linq;
 
 namespace Tests
 {
@@ -8,6 +11,21 @@ namespace Tests
         public void Setup()
         {
 
+        }
+
+        [Test]
+        public void InsertTest()
+        {
+            // System.Threading.Thread.Sleep(60000);
+            ProductModel productModel = ProductModel.Generate();
+            CassandraHelper cassandraHelper = new CassandraHelper("localhost", 9042);
+            cassandraHelper.CreateCommerceKeyspace();
+            cassandraHelper.CreateProductsTable();
+            cassandraHelper.InsertData(productModel);
+
+            ProductModel foundProductModel = cassandraHelper.GetData<ProductModel>("SELECT * FROM commerce.products WHERE ProductId = " + productModel.ProductId.ToString()).FirstOrDefault();
+
+            Assert.That(foundProductModel, Is.Not.Null);
         }
     }
 }

@@ -1,7 +1,7 @@
 version: "3"
 services:
   datastax-dse-server:
-    container_name: test-dse
+    container_name: commerce-test-db
     image: datastax/dse-server
     environment:
       DS_LICENSE: accept

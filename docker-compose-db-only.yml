@@ -1,0 +1,13 @@
+version: "3"
+services:
+  datastax-dse-server:
+    container_name: commerce-test-db
+    image: datastax/dse-server
+    environment:
+      DS_LICENSE: accept
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    ports:
+      - "9042:9042"
