@@ -18,3 +18,5 @@ services:
     tty: true
     depends_on:
       - datastax-dse-server
+    links:
+      - datastax-dse-server
