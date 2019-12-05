@@ -9,6 +9,8 @@ services:
       resources:
         limits:
           memory: 2G
+    logging:
+      driver: none
   commerce-project:
     container_name: commerce-project
     build:
@@ -20,3 +22,5 @@ services:
       - datastax-dse-server
     links:
       - datastax-dse-server
+    ports:
+      - "9042:9042"

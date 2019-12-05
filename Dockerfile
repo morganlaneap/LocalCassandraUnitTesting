@@ -11,4 +11,6 @@ COPY ./tests ./
 
 RUN dotnet restore
 
+RUN apt-get update && apt-get install lsof
+
 ENTRYPOINT ["dotnet", "test"]
